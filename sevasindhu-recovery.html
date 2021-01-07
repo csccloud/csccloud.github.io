@@ -126,7 +126,7 @@
                                         placeholder="Your CSC Id" data-msg="Please enter a valid CSC id" required="required">
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    <div class="text-center"><button onclick="javascript: showRecoveryDetails();">Find Recovery Details</button></div>
+                                    <div class="text-center"><button class="btn btn-secondary" onclick="javascript: showRecoveryDetails();">Find Recovery Details</button></div>
                                 </div>
                                 <div class="col-md-3 form-group">
                                 </div>
@@ -150,6 +150,9 @@
                                     <tr>
                                         <th scope="col" class="text-center">Recovery Amount</th>
                                         <th id="resultamount"></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" scope="col" class="text-center" id="resultbutton"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -210,12 +213,19 @@
         $("#noResultTable").css("display", "none");
         var cscid=$('#cscid').val();
         if(mobj[cscid]!==undefined){
+            var mailtostr='<a class="btn btn-primary" href="mailto:cschelpdesk53@gmail.com?cc=sr_CSCID_@apnacsc.co.in&subject=Recovery%20Amount%20Transaction%20Statement&body=District%3A%20_DISTRICT_%0AName%3A%20_NAME_%0ACSC%20Id%3A%20_CSCID_%0AMobile%20No%3A%20">Request Detailed Transaction Statement</a>';
             $('#resultcscid').html(cscid);
+            mailtostr=mailtostr.replace(/_CSCID_/g,cscid);
             $('#resultname').html(mobj[cscid].n);
+            mailtostr=mailtostr.replace(/_NAME_/g, mobj[cscid].n);
             $('#resultdistrict').html(mobj[cscid].d);
+            mailtostr=mailtostr.replace(/_DISTRICT_/g, mobj[cscid].d);
             $('#resultamount').html(mobj[cscid].a);
+            $('#resultbutton').html(mailtostr);
+
             $("#resultTable").css("display", "block");
             $("#noResultTable").css("display", "none");
+
         } else {
             $("#resultTable").css("display", "none");
             $("#noResultTable").css("display", "block");
